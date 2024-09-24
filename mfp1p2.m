@@ -4,8 +4,8 @@ clc
 
 rng(1)
 
-p1 = 0.96;
-p2 = 0.94;
+p1 = 1;
+p2 = 0.75;
 k = 10;
 
 sz = 2048;
@@ -135,23 +135,12 @@ padsz = ceil(sqrt((sz/2)^2 + (sz/2)^2))-(sz/2);
 
 initmatadj = padarray(initmat,[padsz,padsz],1,'both');
 
-% figure(4)
-% imshow(imcart)
-
 %% Multifractal analysis
 h = 0.1;
 
 q = -10:h:10;
 
 Dqtheory = zeros(length(q),1);
-
-% for currq = 1:length(Dqtheory)
-%     if q(currq) == 1
-%         Dqtheory(currq) = (log(2*(p1+p2)) - (p1*log(p1) + p2*log(p2)))/log(2);
-%     else
-%         Dqtheory(currq) = 1 + (log(p1^q(currq) + p2^q(currq)) - q(currq)*log(p1+p2))/((1-q(currq))*log(2));
-%     end
-% end
 
 a = (p1+p2)/2;
 b = p1/p2;
@@ -176,39 +165,4 @@ end
 
 ftheory = q'.*alphatheory - tauq;
 
-[Dqrec,myalpharec,falpharec] = mfrectanglebinarized(initmat,0,q,0);
-[Dqpol,myalphapol,falphapol] = mfradialellipse(initmatadj,0,q,0);
-[Dqtheta,alphatheta,falphatheta] = mfthetacoordinate(initmatadj,0,q,0);
-%% Plots
-% falphatheta = falphatheta + 1;
-% alphatheta = alphatheta + 1;
 
-figure(2)
-plot(q,Dqrec,'--r',q,Dqtheory,'k')
-box on
-grid, grid minor
-legend("Box Counting","Theoretical")
-xlabel('$q$','Interpreter','latex')
-ylabel('$D(q)$','Interpreter','latex')
-ylim([1 3])
-fontname(gcf,"Times")
-
-figure(3)
-hold on
-plot(alphatheory,ftheory,'k',LineWidth=1.25)
-plot(myalpharec,falpharec,'--r',LineWidth=1.25)
-plot(myalphapol,falphapol,'--b',LineWidth=1.25)
-plot(alphatheta,falphatheta,'--',LineWidth=1.25,Color="#EDB120")
-box on
-grid, grid minor
-legend("Theoretical","Rectangular","Polar","Radial",'Location','northeast')
-fontname(gcf,"Times")
-xlabel('$\alpha$','Interpreter','latex')
-ylabel('$f(\alpha)$','Interpreter','latex')
-%xlim([0 3.5])
-ylim([0 2.1])
-hold off
-
-errorrec = rms(ftheory - falpharec);
-errorpol = rms(ftheory - falphapol);
-errortheta = rms(ftheory - falphatheta);
