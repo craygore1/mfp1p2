@@ -11,12 +11,12 @@ This repository contains two pieces of MATLAB code that generate multifractal pa
 
 ---
 
-## 1. Scripts: `mfp1p2.m`, 'mfp1p2circle.m', 'mfp1p2radial.m'
+## 1. Scripts: `mfp1p2.m`, `mfp1p2circle.m`, `mfp1p2radial.m`
 
 ### Description
 These scripts generate a binary matrix representing a multifractal pattern using the mfp1p2 probabilistic model. The matrix is subdivided recursively into smaller blocks, and each block is assigned values based on the probabilities `p1` and `p2`. After generating the pattern, the script performs a **multifractal analysis** by calculating the generalized fractal dimensions \( D(q) \), the multifractal spectrum \( \tau(q) \), the singularity strength \( \alpha \), and the multifractal spectrum \( f(\alpha) \).
 
-The variations 'mfp1p2circle.m' and 'mfp1p2radial.m' generate the multifractal pattern on a circular support. 'mfp1p2circle.m' only subdivides by angle while 'mfp1p2radial.m' subdivides by both radius and angle.
+The variations `mfp1p2circle.m` and `mfp1p2radial.m` generate the multifractal pattern on a circular support. `mfp1p2circle.m` only subdivides by angle while `mfp1p2radial.m` subdivides by both radius and angle.
 
 ---
 
