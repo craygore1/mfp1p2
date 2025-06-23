@@ -1,0 +1,20 @@
+clear
+close all
+clc
+
+rng(1); % Set random seed for reproducibility
+p1 = 1;
+p2 = 0.75;
+sz = 2048;
+
+% Values of k to plot
+k_values = [1, 2, 6, 10];
+
+for k_val = k_values
+    initmat = mfp1p2gen(sz, p1, p2, k_val);
+    
+    % Plotting for the current k_val
+    subplot(num_rows, num_cols, idx);
+    imshow(initmat);
+    title(['k = ' num22str(k_val)]);
+end

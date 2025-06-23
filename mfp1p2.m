@@ -16,9 +16,6 @@ sqsz(k+1:end) = [];
 initmat = ones(sz);
 probmat = ones(sz);
 
-% probmat(1:end/2,:) = p1;
-% probmat((end/2)+1:end,:) = p2;
-
 rowvec = sz;
 colvec = sz;
 
@@ -117,23 +114,15 @@ end
 
 initmat = cell2mat(initcell);
 
-% for i = 1:sz
-%     for j = 1:sz
-%         mydec = rand;
-%         if mydec <= probmat(i,j)
-%             initmat(i,j) = 0;
-%         end
-%     end
-% end
-
 figure(1)
 imshow(initmat)
-
-%imcart = cartesiantransformation(initmat,0,sz,sz);
 
 padsz = ceil(sqrt((sz/2)^2 + (sz/2)^2))-(sz/2);
 
 initmatadj = padarray(initmat,[padsz,padsz],1,'both');
+
+figure(2)
+imshow(initmatadj)
 
 %% Multifractal analysis
 h = 0.1;
