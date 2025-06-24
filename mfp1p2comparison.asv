@@ -40,10 +40,11 @@ ax = gca;
 ax.FontSize = 16; 
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 700, 500]); 
+set(h_fig_plot, 'Position', [100, 100, 1500, 800]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 
-print
+print(h_fig_plot, 'mfp1p2_square_comparison.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
+
 % Plotting Transformed Radial
 falpha_radial_transform = falpha_radial + 1;
 shift = alpha_theory(101) - myalpha_radial(101);
@@ -69,10 +70,10 @@ ax = gca;
 ax.FontSize = 16; 
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 700, 500]); 
+set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 
-
+print(h_fig_plot, 'mfp1p2_square_comparison_transformed.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
 %% Radial MFp1p2 Spectrum Comparison
 [initmat, alpha_theory, f_theory] = mfp1p2radial(1024, p1, p2, 8);
 [Dq_rec,myalpha_rec,falpha_rec] = mfrectanglebinarized(initmat, 0, q, 0);
@@ -99,8 +100,10 @@ ax = gca;
 ax.FontSize = 16; 
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 700, 500]); 
+set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
+
+print(h_fig_plot, 'mfp1p2_radial_comparison.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
 
 % Plotting Transformation
 falpha_rec_transform = falpha_rec - 1;
@@ -129,9 +132,10 @@ ax = gca;
 ax.FontSize = 16; 
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 700, 500]); 
+set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 
+print(h_fig_plot, 'mfp1p2_radial_comparison_transformed.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
 %% Polar MFp1p2 Spectrum Comparison
 [initmat, alpha_theory, f_theory] = mfp1p2polar(sz, p1, p2, k);
 [Dq_rec,myalpha_rec,falpha_rec] = mfrectanglebinarized(initmat, 0, q, 0);
@@ -158,8 +162,10 @@ ax = gca;
 ax.FontSize = 16; 
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 700, 500]); 
+set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
+
+print(h_fig_plot, 'mfp1p2_polar_comparison.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
 
 % Plotting Transformed Radial
 falpha_radial_transform = falpha_radial + 1;
@@ -185,5 +191,7 @@ ax = gca;
 ax.FontSize = 16; 
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 700, 500]); 
+set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
+
+print(h_fig_plot, 'mfp1p2_polar_comparison_transformed.png', '-dpng', '-r600'); % Save as PNG with 600 DPI

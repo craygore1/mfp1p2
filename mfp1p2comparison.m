@@ -9,10 +9,10 @@ sz = 2048;
 k = 10;
 q = -10:0.1:10;
 
-color_rec = [1.0 0.4 0.0];
+color_rec = [1.0 0.4 0.0]; % Colors
 color_rad = [0.0 0.6 0.6]; 
 color_pol = [0.7 0.0 1.0];
-fontsz = 24; % Global font size
+fontsz = 32; % Global font size
 %% Square MFp1p2 Spectrum Comparison
 
 [initmat, alpha_theory, f_theory] = mfp1p2gen(sz, p1, p2, k);
@@ -32,15 +32,15 @@ plot(myalpha_polar, falpha_polar, 'Color', color_pol, 'LineStyle', ':', 'LineWid
 
 hold off; 
 
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 ylim([0 2.1])
 legend('Location', 'bestoutside','FontSize',16);
 ax = gca;
-ax.FontSize = 16; 
+ax.FontSize = 16;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
+set(h_fig_plot, 'Position', [100, 100, 1500, 1500]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 
 print(h_fig_plot, 'mfp1p2_square_comparison.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
@@ -61,16 +61,16 @@ plot(myalpha_polar, falpha_polar, 'Color', color_pol, 'LineStyle', ':', 'LineWid
 
 hold off; 
 
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 xlim([1.6 2.5])
 ylim([0 2.1])
 legend('Location', 'bestoutside','FontSize',16);
 ax = gca;
-ax.FontSize = 16; 
+ax.FontSize = 16;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
+set(h_fig_plot, 'Position', [100, 100, 1500, 1500]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 
 print(h_fig_plot, 'mfp1p2_square_comparison_transformed.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
@@ -92,15 +92,15 @@ plot(myalpha_polar, falpha_polar, 'Color', color_pol, 'LineStyle', ':', 'LineWid
 
 hold off; 
 
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 ylim([0 2.1])
 legend('Location', 'bestoutside','FontSize',16);
 ax = gca;
-ax.FontSize = 16; 
+ax.FontSize = 16;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
+set(h_fig_plot, 'Position', [100, 100, 1500, 1500]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 
 print(h_fig_plot, 'mfp1p2_radial_comparison.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
@@ -124,15 +124,15 @@ plot(myalpha_polar_transform, falpha_polar_transform, 'Color', color_pol, 'LineS
 
 hold off; 
 
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 ylim([0 1.1])
 legend('Location', 'bestoutside','FontSize',16);
 ax = gca;
-ax.FontSize = 16; 
+ax.FontSize = 16;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
+set(h_fig_plot, 'Position', [100, 100, 1500, 1500]);
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 
 print(h_fig_plot, 'mfp1p2_radial_comparison_transformed.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
@@ -154,15 +154,15 @@ plot(myalpha_polar, falpha_polar, 'Color', color_pol, 'LineStyle', ':', 'LineWid
 
 hold off; 
 
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 ylim([0 2.1])
 legend('Location', 'bestoutside','FontSize',16);
 ax = gca;
-ax.FontSize = 16; 
+ax.FontSize = 16;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
+set(h_fig_plot, 'Position', [100, 100, 1500, 1500]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 
 print(h_fig_plot, 'mfp1p2_polar_comparison.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
@@ -183,15 +183,15 @@ plot(myalpha_polar, falpha_polar, 'Color', color_pol, 'LineStyle', ':', 'LineWid
 
 hold off; 
 
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 ylim([0 2.1])
 legend('Location', 'bestoutside','FontSize',16);
 ax = gca;
-ax.FontSize = 16; 
+ax.FontSize = 16;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
 
 % Apply general figure settings
-set(h_fig_plot, 'Position', [100, 100, 1000, 800]); 
+set(h_fig_plot, 'Position', [100, 100, 1500, 1500]);
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 
 print(h_fig_plot, 'mfp1p2_polar_comparison_transformed.png', '-dpng', '-r600'); % Save as PNG with 600 DPI
