@@ -33,3 +33,4 @@ for idx = 1:num_k_values
 end
 
 set(gcf, 'Position', [100, 100, 1000, 1000])
+fontname(gcf,"Times")
