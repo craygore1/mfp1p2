@@ -12,7 +12,12 @@ q = -10:0.1:10;
 color_rec = [1.0 0.4 0.0]; % Colors
 color_rad = [0.0 0.6 0.6]; 
 color_pol = [0.7 0.0 1.0];
-fontsz = 32; % Global font size
+
+label_fontsz = 32; % Global label font size
+tick_fontsz = 32; % Global tick font size
+legend_fontsz = 16; % Global legend font size
+
+
 %% Square MFp1p2 Spectrum Comparison
 
 [initmat, alpha_theory, f_theory] = mfp1p2gen(sz, p1, p2, k);
@@ -33,11 +38,11 @@ plot(myalpha_polar, falpha_polar, 'Color', color_pol, 'LineStyle', ':', 'LineWid
 hold off; 
 
 ylim([0 2.1])
-legend('Location', 'bestoutside','FontSize',16);
+legend('Location', 'bestoutside','FontSize',legend_fontsz);
 ax = gca;
-ax.FontSize = 16;
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
+ax.FontSize = tick_fontsz;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', label_fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', label_fontsz);
 
 % Apply general figure settings
 set(h_fig_plot, 'Position', [100, 100, 1500, 1500]); 
@@ -63,11 +68,11 @@ hold off;
 
 xlim([1.6 2.5])
 ylim([0 2.1])
-legend('Location', 'bestoutside','FontSize',16);
+legend('Location', 'bestoutside','FontSize',legend_fontsz);
 ax = gca;
-ax.FontSize = 16;
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
+ax.FontSize = tick_fontsz;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', label_fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', label_fontsz);
 
 % Apply general figure settings
 set(h_fig_plot, 'Position', [100, 100, 1500, 1500]); 
@@ -93,11 +98,11 @@ plot(myalpha_polar, falpha_polar, 'Color', color_pol, 'LineStyle', ':', 'LineWid
 hold off; 
 
 ylim([0 2.1])
-legend('Location', 'bestoutside','FontSize',16);
+legend('Location', 'bestoutside','FontSize',legend_fontsz);
 ax = gca;
-ax.FontSize = 16;
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
+ax.FontSize = tick_fontsz;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', label_fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', label_fontsz);
 
 % Apply general figure settings
 set(h_fig_plot, 'Position', [100, 100, 1500, 1500]); 
@@ -125,11 +130,11 @@ plot(myalpha_polar_transform, falpha_polar_transform, 'Color', color_pol, 'LineS
 hold off; 
 
 ylim([0 1.1])
-legend('Location', 'bestoutside','FontSize',16);
+legend('Location', 'bestoutside','FontSize',legend_fontsz);
 ax = gca;
-ax.FontSize = 16;
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
+ax.FontSize = tick_fontsz;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', label_fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', label_fontsz);
 
 % Apply general figure settings
 set(h_fig_plot, 'Position', [100, 100, 1500, 1500]);
@@ -155,11 +160,11 @@ plot(myalpha_polar, falpha_polar, 'Color', color_pol, 'LineStyle', ':', 'LineWid
 hold off; 
 
 ylim([0 2.1])
-legend('Location', 'bestoutside','FontSize',16);
+legend('Location', 'bestoutside','FontSize',legend_fontsz);
 ax = gca;
-ax.FontSize = 16;
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
+ax.FontSize = tick_fontsz;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', label_fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', label_fontsz);
 
 % Apply general figure settings
 set(h_fig_plot, 'Position', [100, 100, 1500, 1500]); 
@@ -184,11 +189,11 @@ plot(myalpha_polar, falpha_polar, 'Color', color_pol, 'LineStyle', ':', 'LineWid
 hold off; 
 
 ylim([0 2.1])
-legend('Location', 'bestoutside','FontSize',16);
+legend('Location', 'bestoutside','FontSize',legend_fontsz);
 ax = gca;
-ax.FontSize = 16;
-xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', fontsz);
-ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', fontsz);
+ax.FontSize = tick_fontsz;
+xlabel('$\alpha$', 'Interpreter', 'latex','FontSize', label_fontsz);
+ylabel('$f(\alpha)$', 'Interpreter', 'latex','FontSize', label_fontsz);
 
 % Apply general figure settings
 set(h_fig_plot, 'Position', [100, 100, 1500, 1500]);
