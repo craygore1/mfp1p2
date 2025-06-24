@@ -1,4 +1,4 @@
-function  A = mfp1p2gen(n,prob1,prob2,iterations)
+function  [mf_image, alpha_theory, f_theory] = mfp1p2gen(n,prob1,prob2,iterations)
 %generates k iterations of mfp1p2 model of size (n x n) with parameters prob1 and prob2
 
 p1 = prob1;
@@ -112,4 +112,41 @@ for i = 1:length(probcell(:,1))
     end
 end
 
-A = cell2mat(initcell);
+initmat = cell2mat(initcell);
+
+mf_image = initmat;
+
+%% Multifractal analysis
+h = 0.1;
+
+q = -10:h:10;
+
+Dqtheory = zeros(length(q),1);
+
+a = (p1+p2)/2;
+b = p1/p2;
+
+for currq = 1:length(Dqtheory)
+    if q(currq) == 1
+        Dqtheory(currq) = 2*log2(b+1) - (2*b*log2(b))/(b+1);
+    else
+        Dqtheory(currq) = (2*log2(b^q(currq) + 1) - 2*q(currq)*log2(b+1))/(1-q(currq));
+    end
+end
+
+tauq = (q'-1).*Dqtheory;
+
+alphatheory = zeros(length(Dqtheory),1);
+alphatheory(1) = (tauq(2) - tauq(1))/h;
+alphatheory(end) = (tauq(end) - tauq(end-1))/h;
+
+for step = 2:length(alphatheory)-1
+    alphatheory(step) = (tauq(step+1) - tauq(step-1))/(2*h);
+end
+
+ftheory = q'.*alphatheory - tauq;
+
+alpha_theory = alphatheory;
+f_theory = ftheory;
+
+end
