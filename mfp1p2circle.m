@@ -89,14 +89,6 @@ Dqtheory = zeros(length(q),1);
 a = (p1+p2)/2;
 b = p1/p2;
 
-% for currq = 1:length(Dqtheory)
-%     if q(currq) == 1
-%         Dqtheory(currq) = (log(2*(p1+p2)) - (p1*log(p1) + p2*log(p2)))/log(2);
-%     else
-%         Dqtheory(currq) = 1 + (log(p1^q(currq) + p2^q(currq)) - q(currq)*log(p1+p2))/((1-q(currq))*log(2));
-%     end
-% end
-
 for currq = 1:length(Dqtheory)
     if q(currq) == 1
         Dqtheory(currq) = log2(b+1) - (b*log2(b))/(b+1);
@@ -116,4 +108,3 @@ for step = 2:length(alphatheory)-1
 end
 
 ftheory = q'.*alphatheory - tauq;
-

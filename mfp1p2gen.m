@@ -1,5 +1,5 @@
 function  A = mfp1p2gen(n,prob1,prob2,iterations)
-%generates k iterations of mfp1p2 model of size nxn with parameters prob1 and prob2
+%generates k iterations of mfp1p2 model of size (n x n) with parameters prob1 and prob2
 
 p1 = prob1;
 p2 = prob2;

@@ -1,145 +1,80 @@
-clear
-close all
-clc
+function [mf_image, alpha_theory, f_theory] = mfp1p2radial(n,prob1,prob2,iterations)
 
-rng("default")
+p1 = prob1;
+p2 = prob2;
+k = iterations;
+sz = n;
 
-p1 = 1;
-p2 = 0.75;
-k = 10; % only use even k
+initmat = ones(sz);
 
-sz = 2048;
-sqsz = 2.^(1:k);
-sqsz = repelem(sqsz,2);
-sqsz(k+1:end) = [];
+pvec = 1;
 
-initmat = zeros(sz);
-probmat = ones(sz);
+for i = 1:k
+    temp = [pvec,pvec];
+    
+    len = 2^i;
+    left = 1:len/2;
+    right = len/2+1:len;
 
-% probmat(1:end/2,:) = p1;
-% probmat((end/2)+1:end,:) = p2;
 
-rowvec = sz;
-colvec = sz;
-
-counter = 0;
-
-for x = sqsz
-    counter = counter + 1;
-
-    if mod(counter,2) == 0
-        pxsz = floor(sz./x); 
-
-        numboxC = floor(sz / pxsz); % vertical cut
-        colvec = pxsz * ones(1, numboxC);
-
-        probcell = mat2cell(probmat,rowvec,colvec);
-
-        for i = 1:length(probcell(:,1))
-            for j = 1:2:length(probcell(1,:))-1
-                left = cell2mat(probcell(i,j));
-                right = cell2mat(probcell(i,j+1));
-
-                half = rand;
-                if half < 0.5
-                    left = left.*p1;
-                    right = right.*p2;
-                else
-                    left = left.*p2;
-                    right = right.*p1;
-                end
-
-                probcell{i,j} = left;
-                probcell{i,j+1} = right;
-
-                
-            end
-        end
-
-        probmat = cell2mat(probcell);
-
+    half = rand;
+    if half < 0.5
+        temp(left) = temp(left).*p1;
+        temp(right) = temp(right).*p2;
     else
-        pxsz = floor(sz./x);
-
-        numboxR = floor(sz / pxsz); % horizontal cut
-        rowvec = pxsz * ones(1, numboxR);
-
-        probcell = mat2cell(probmat,rowvec,colvec);
-
-        for i = 1:2:length(probcell(:,1))-1
-            for j = 1:length(probcell(1,:))
-                top = cell2mat(probcell(i,j));
-                bot = cell2mat(probcell(i+1,j));
-
-                half = rand;
-                if half < 0.5
-                    top = top.*p1;
-                    bot = bot.*p2;
-                else
-                    top = top.*p2;
-                    bot = bot.*p1;
-                end
-
-                probcell{i,j} = top;
-                probcell{i+1,j} = bot;
-            end
-        end
-
-        probmat = cell2mat(probcell);
-
+        temp(left) = temp(left).*p2;
+        temp(right) = temp(right).*p1;
     end
+    pvec = temp;
 end
 
-bandaid = zeros(length(probcell(:,1)),length(probcell(1,:)));
+centerx = floor(sz/2); %setting ellipse axes
+centery = floor(sz/2); 
+radiusx = centerx;
+radiusy = centery;
+fullradius = radiusx+radiusy;
+[imcols, imrows] = meshgrid(1:sz, 1:sz);
+myellipse = (imrows - centery).^2 ./ radiusy^2 ...
+    + (imcols - centerx).^2 ./ radiusx^2 <= 1;
 
-for ii = 1:length(probcell(:,1))
-    for jj = 1:length(probcell(1,:))
-        bandaid(ii,jj) = mean(mean(probcell{ii,jj}));
-    end
-end
+theta = linspace(-pi,pi,2^k + 1);
 
-xvec = round(linspace(-sz/2,sz/2,sz));
-yvec = round(linspace(-sz/2,sz/2,sz));
+xvec = -floor(sz/2):floor(sz/2);
+yvec = -floor(sz/2):floor(sz/2);
 [Xim,Yim] = meshgrid(xvec,yvec);
 
-[theta,rho] = cart2pol(Xim,Yim); %polarcoordinates of all points
+angmat = zeros(sz);
 
-d1 = pi.*ones(2^(k/2),1);
-d2 = -pi.*ones((2^(k/2))-1,1);
-A = diag(d1) + diag(d2,-1);
-
-areas = (pi/(2^(k/2))).*ones(2^(k/2),1);
-rhorange = [0; sqrt(A\areas)];
-
-rhorange = rescale(rhorange,0,sz/2);
-thetarange = linspace(-pi,pi,(2^(k/2))+1);
-
-for i = 1:length(rhorange)-1
-    for j = 1:length(thetarange)-1
-        temp1 = (rho < rhorange(i+1)) & (rho >= rhorange(i));
-        temp2 = (theta < thetarange(j+1)) & (theta >= thetarange(j));
-        temp3 = bandaid(i,j).*(temp1&temp2);
-%         imagesc(temp3)
-%         pause(0.1)
-        initmat = temp3+initmat;
+for x = 1:sz
+    for y = 1:sz
+        angmat(x,y) = atan2(Yim(x,y),Xim(x,y));
     end
 end
 
-mypic = ones(sz);
+angcell = cell(length(theta)-1,1);
 
-for len1 = 1:sz
-    for len2 = 1:sz
-        dec = rand;
-        if initmat(len1,len2) < dec
-            mypic(len1,len2) = 0;
+for t = 1:length(theta)-1
+    angcell{t} = angmat > theta(t) & angmat <= theta(t+1);
+end
+
+for j = 1:length(theta)-1
+    angcell{j} = cell2mat(angcell(j)).*pvec(j);
+end
+
+pmat = sum(cat(3,angcell{:}),3);
+pmat = pmat.*myellipse;
+
+for u = 1:sz
+    for v = 1:sz
+        mydec = rand;
+        if mydec <= pmat(u,v)
+            initmat(u,v) = 0;
         end
     end
 end
 
-mypic = ~mypic;
-figure
-imshow(mypic)
-%% Multifractal analysis
+mf_image = initmat;
+
 h = 0.1;
 
 q = -10:h:10;
@@ -151,9 +86,9 @@ b = p1/p2;
 
 for currq = 1:length(Dqtheory)
     if q(currq) == 1
-        Dqtheory(currq) = 2*log2(b+1) - (2*b*log2(b))/(b+1);
+        Dqtheory(currq) = log2(b+1) - (b*log2(b))/(b+1);
     else
-        Dqtheory(currq) = (2*log2(b^q(currq) + 1) - 2*q(currq)*log2(b+1))/(1-q(currq));
+        Dqtheory(currq) = (log2(b^q(currq) + 1) - q(currq)*log2(b+1))/(1-q(currq));
     end
 end
 
@@ -168,4 +103,7 @@ for step = 2:length(alphatheory)-1
 end
 
 ftheory = q'.*alphatheory - tauq;
+
+alpha_theory = alphatheory;
+f_theory = ftheory;
 
