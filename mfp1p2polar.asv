@@ -1,16 +1,15 @@
-function  [mf_image, alpha_theory, f_theory] = mfp1p2gen(n,prob1,prob2,iterations)
-%generates k iterations of mfp1p2 model of size (n x n) with parameters prob1 and prob2
+function [mf_image, alpha_theory, f_theory] = mfp1p2polar(n,prob1,prob2,iterations)
 
 p1 = prob1;
 p2 = prob2;
-k = iterations;
+k = iterations; % only use even k
 
 sz = n;
 sqsz = 2.^(1:k);
 sqsz = repelem(sqsz,2);
 sqsz(k+1:end) = [];
 
-initmat = ones(sz);
+initmat = zeros(sz);
 probmat = ones(sz);
 
 % probmat(1:end/2,:) = p1;
@@ -87,35 +86,55 @@ for x = sqsz
     end
 end
 
-initcell = mat2cell(initmat,rowvec,colvec);
+bandaid = zeros(length(probcell(:,1)),length(probcell(1,:)));
 
-for i = 1:length(probcell(:,1))
-    for j = 1:length(probcell(1,:))
-        len1 = size(probcell{i,j},1);
-        len2 = size(probcell{i,j},2);
-        temp = initcell{i,j};
-        tempprob = probcell{i,j};
-        num = ceil((len1*len2)*tempprob(1,1));
-        mycount = 0;
-        for v = 1:len1
-            for w = 1:len2
-                if mycount < num
-                    temp(v,w) = 0;
-                    mycount = mycount+1;
-                end
-            end
-        end
-        myvec = reshape(temp,1,[]);
-        myvec = myvec(randperm(length(myvec)));
-        temp = reshape(myvec,size(temp));
-        initcell{i,j} = temp;
+for ii = 1:length(probcell(:,1))
+    for jj = 1:length(probcell(1,:))
+        bandaid(ii,jj) = mean(mean(probcell{ii,jj}));
     end
 end
 
-initmat = cell2mat(initcell);
+xvec = round(linspace(-sz/2,sz/2,sz));
+yvec = round(linspace(-sz/2,sz/2,sz));
+[Xim,Yim] = meshgrid(xvec,yvec);
 
-mf_image = initmat;
+[theta,rho] = cart2pol(Xim,Yim); %polarcoordinates of all points
 
+d1 = pi.*ones(2^(k/2),1);
+d2 = -pi.*ones((2^(k/2))-1,1);
+A = diag(d1) + diag(d2,-1);
+
+areas = (pi/(2^(k/2))).*ones(2^(k/2),1);
+rhorange = [0; sqrt(A\areas)];
+
+rhorange = rescale(rhorange,0,sz/2);
+thetarange = linspace(-pi,pi,(2^(k/2))+1);
+
+for i = 1:length(rhorange)-1
+    for j = 1:length(thetarange)-1
+        temp1 = (rho < rhorange(i+1)) & (rho >= rhorange(i));
+        temp2 = (theta < thetarange(j+1)) & (theta >= thetarange(j));
+        temp3 = bandaid(i,j).*(temp1&temp2);
+%         imagesc(temp3)
+%         pause(0.1)
+        initmat = temp3+initmat;
+    end
+end
+
+mypic = ones(sz);
+
+for len1 = 1:sz
+    for len2 = 1:sz
+        dec = rand;
+        if initmat(len1,len2) < dec
+            mypic(len1,len2) = 0;
+        end
+    end
+end
+
+mypic = ~mypic;
+figure
+imshow(mypic)
 %% Multifractal analysis
 h = 0.1;
 
@@ -146,7 +165,4 @@ end
 
 ftheory = q'.*alphatheory - tauq;
 
-alpha_theory = alphatheory;
-f_theory = ftheory;
-
-end
+plot(alphatheory, ftheory)
