@@ -39,7 +39,7 @@ ax.FontSize = 16;
 set(h_fig_plot, 'Position', [100, 100, 700, 500]); 
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 %% Radial MFp1p2
-[initmat, alpha_theory, f_theory] = mfp1p2radial(1024, p1, p2, 8);
+[initmat, alpha_theory, f_theory] = mfp1p2radial(sz, p1, p2, k);
 [Dq_rec,myalpha_rec,falpha_rec] = mfrectanglebinarized(initmat, 0, q, 0);
 [Dq_radial,myalpha_radial,falpha_radial] = mfthetacoordinate(initmat, 0, q, 0);
 [Dq_polar,myalpha_polar,falpha_polar] = mfradialellipse(initmat, 0, q, 0);
@@ -67,7 +67,7 @@ set(h_fig_plot, 'Position', [100, 100, 700, 500]);
 fontname(h_fig_plot, 'Times New Roman'); % Set font
 
 %% Polar MFp1p2
-[initmat, alpha_theory, f_theory] = mfp1p2polar(sz, p1, p2, k);
+[initmat, alpha_theory, f_theory] = mfp1p2polar(1024, p1, p2, 8);
 [Dq_rec,myalpha_rec,falpha_rec] = mfrectanglebinarized(initmat, 0, q, 0);
 [Dq_radial,myalpha_radial,falpha_radial] = mfthetacoordinate(initmat, 0, q, 0);
 [Dq_polar,myalpha_polar,falpha_polar] = mfradialellipse(initmat, 0, q, 0);
